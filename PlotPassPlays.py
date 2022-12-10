@@ -867,10 +867,12 @@ def PlotPlay(GameID,PlayID):
         PlayerNameShort = SkillPlayerNames[i].split(' ')[0][0]+'.'+SkillPlayerNames[i].split(' ')[1]
         PlayerNameAlt = SkillPlayerNames[i].split(' ')[0][0:2]+'.'+SkillPlayerNames[i].split(' ')[1]
         if any([PlayerNameStandard in PlayDesc, PlayerNameShort in PlayDesc, PlayerNameAlt in PlayDesc]) and not Positions[i]=='QB':
-            if "incomplete" in PlayDesc:
+            if "incomplete" in PlayDesc or "deflected" in PlayDesc or "intended" in PlayDesc:
                 route_color = 'red'
             elif "pass" in PlayDesc:
                 route_color = 'lime'
+        elif Positions[i]=='QB' and ' sacked ' in PlayDesc:
+            route_color = 'red'
         else:
             route_color = 'white'
         posx, posy = SkillPos(Positions[i], RosterPositions[i], Sides[i], Orders[i], LoSYard, hashloc, Shotgun, route_color)
@@ -971,9 +973,10 @@ def PlotPlay(GameID,PlayID):
     
     plt.show()
 
-## Uncomment below to plot an individual play
+## Uncomment below to plot specific individual plays
 #PlotPlay(2859, 745)
 #PlotPlay(2821, 540)
+#PlotPlay(2871,220)
 
 #Can look at more than 1 random play by updating the range below
 for i in range(1):
