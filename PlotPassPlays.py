@@ -974,9 +974,9 @@ def PlotPlay(GameID,PlayID):
     plt.show()
 
 ## Uncomment below to plot specific individual plays
-#PlotPlay(2859, 745)
-#PlotPlay(2821, 540)
-#PlotPlay(2871,220)
+#PlotPlay(2886,400)
+#PlotPlay(2838,585)
+#PlotPlay(2846,190)
 
 #Can look at more than 1 random play by updating the range below
 for i in range(1):
