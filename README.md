@@ -11,6 +11,10 @@ Sample Output (Incompletion):
 
 ![Example Cowboys Incompletion](https://github.com/AstronomerPat/NFLPlayVisualizer/blob/main/Figure_2.png)
 
+Sample Output (Sack):
+
+![Example Lions Sack](https://github.com/AstronomerPat/NFLPlayVisualizer/blob/main/Figure_3.png)
+
 Note that the diagrams produced by this script are based on general route descriptions provided in the data files above and are not based on tracking data.
 
 This code is built on data provided by SIS that is publicly available here: https://github.com/SportsInfoSolutions/AnalyticsChallenge2021/tree/main/Data
