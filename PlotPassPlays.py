@@ -146,14 +146,14 @@ def TeamInfo(TeamName):
         TxtColor = 'UNK'
     return Abbrev, BkgColor, TxtColor
 
-def RoutePlot(Route,Position,Side,posx,posy,LoSYard,hashloc):
+def RoutePlot(Route,Position,Side,posx,posy,LoSYard,hashloc,route_color):
     if str(Route)=='nan':
         if not Position=="QB": #assume non-QBs are blocking if they don't have a specific route
-            plt.plot([posx,posx],[posy,posy+2.0],color='white',linewidth=2.0)
-            plt.plot([posx-0.4,posx+0.4],[posy+2.0,posy+2.0],color='white',linewidth=2.0)
+            plt.plot([posx,posx],[posy,posy+2.0],color=route_color,linewidth=2.0)
+            plt.plot([posx-0.4,posx+0.4],[posy+2.0,posy+2.0],color=route_color,linewidth=2.0)
     elif Route=="Blocking" or Route=="Chip":
-        plt.plot([posx,posx],[posy,posy+2.0],color='white',linewidth=2.0)
-        plt.plot([posx-0.4,posx+0.4],[posy+2.0,posy+2.0],color='white',linewidth=2.0)
+        plt.plot([posx,posx],[posy,posy+2.0],color=route_color,linewidth=2.0)
+        plt.plot([posx-0.4,posx+0.4],[posy+2.0,posy+2.0],color=route_color,linewidth=2.0)
     elif Route=="Swing - Right" and Position== "B":
         xs = np.linspace(posx,posx+12.0,num=50)
         ys = np.zeros(len(xs))
@@ -162,8 +162,8 @@ def RoutePlot(Route,Position,Side,posx,posy,LoSYard,hashloc):
                 ys[i] = posy
             elif xs[i] > hashloc+1.0:
                 ys[i] = 1.1*np.exp((xs[i]-(hashloc+1.0))/7.5) + posy-1.1
-        plt.plot(xs,ys,color='white',linewidth=2.0)
-        plt.arrow(xs[-2], ys[-2], xs[-1]-xs[-2], ys[-1]-ys[-2], color='white',
+        plt.plot(xs,ys,color=route_color,linewidth=2.0)
+        plt.arrow(xs[-2], ys[-2], xs[-1]-xs[-2], ys[-1]-ys[-2], color=route_color,
                   width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Swing - Left" and Position== "B":
         xs = np.linspace(posx,posx+12.0,num=50)
@@ -175,248 +175,248 @@ def RoutePlot(Route,Position,Side,posx,posy,LoSYard,hashloc):
                 ys[i] = 1.1*np.exp((xs[i]-(hashloc+1.0))/7.5) + posy-1.1
         xs = np.linspace(posx-12.0,posx,num=50)
         ys = np.flip(ys)
-        plt.plot(xs,ys,color='white',linewidth=2.0)
-        plt.arrow(xs[1], ys[1], xs[0]-xs[1], ys[0]-ys[1], color='white',
+        plt.plot(xs,ys,color=route_color,linewidth=2.0)
+        plt.arrow(xs[1], ys[1], xs[0]-xs[1], ys[0]-ys[1], color=route_color,
                   width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Swing - Right":
         if Side=="L":
-            plt.plot([posx,posx+2.0,hashloc+1.0,hashloc+3.0],[posy,posy-1.0,posy-1.0,posy+2.0],color='white',linewidth=2.0)
-            plt.arrow(hashloc+3.0,posy+2.0,dx=0.2, dy=0.3, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx+2.0,hashloc+1.0,hashloc+3.0],[posy,posy-1.0,posy-1.0,posy+2.0],color=route_color,linewidth=2.0)
+            plt.arrow(hashloc+3.0,posy+2.0,dx=0.2, dy=0.3, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=="R":
-            plt.plot([posx,posx+2.0,posx+5.0,posx+7.0],[posy,posy-1.0,posy-1.0,posy+2.0],color='white',linewidth=2.0)
-            plt.arrow(posx+7.0,posy+2.0,dx=0.2, dy=0.3, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx+2.0,posx+5.0,posx+7.0],[posy,posy-1.0,posy-1.0,posy+2.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+7.0,posy+2.0,dx=0.2, dy=0.3, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Swing - Left":
         if Side=="R":
-            plt.plot([posx,posx-2.0,hashloc-1.0,hashloc-3.0],[posy,posy-1.0,posy-1.0,posy+2.0],color='white',linewidth=2.0)
-            plt.arrow(hashloc-3.0,posy+2.0,dx=-0.2, dy=0.3, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx-2.0,hashloc-1.0,hashloc-3.0],[posy,posy-1.0,posy-1.0,posy+2.0],color=route_color,linewidth=2.0)
+            plt.arrow(hashloc-3.0,posy+2.0,dx=-0.2, dy=0.3, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=="L":
-            plt.plot([posx,posx-2.0,posx-5.0,posx-7.0],[posy,posy-1.0,posy-1.0,posy+2.0],color='white',linewidth=2.0)
-            plt.arrow(posx-7.0,posy+2.0,dx=-0.2, dy=0.3, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx-2.0,posx-5.0,posx-7.0],[posy,posy-1.0,posy-1.0,posy+2.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-7.0,posy+2.0,dx=-0.2, dy=0.3, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Screen - RB":
         if hashloc <= 0.0: #left or center pre-snap alignment relative to hashmarks
-            plt.plot([posx,posx+2.0],[posy,posy+2.5],color='white',linewidth=2.0)
-            plt.plot([posx+2.0,posx+2.0],[posy+2.5,posy+2.0],color='white',linewidth=2.0)
-            plt.arrow(posx+2.0, posy+2.0, dx=0.0, dy=-0.1, color='white',
+            plt.plot([posx,posx+2.0],[posy,posy+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx+2.0,posx+2.0],[posy+2.5,posy+2.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+2.0, posy+2.0, dx=0.0, dy=-0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif hashloc > 0.0: #right pre-snap alignment relative to hashmarks
-            plt.plot([posx,posx-2.0],[posy,posy+2.5],color='white',linewidth=2.0)
-            plt.plot([posx-2.0,posx-2.0],[posy+2.5,posy+2.0],color='white',linewidth=2.0)
-            plt.arrow(posx-2.0, posy+2.0, dx=0.0, dy=-0.1, color='white',
+            plt.plot([posx,posx-2.0],[posy,posy+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx-2.0,posx-2.0],[posy+2.5,posy+2.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-2.0, posy+2.0, dx=0.0, dy=-0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Fade - Back Shoulder":
         if Side=="L":
-            plt.plot([posx,posx-1.0],[posy,posy+2.5],color='white',linewidth=2.0)
-            plt.plot([posx-1.0,posx-1.0],[posy+2.5,posy+12.5],color='white',linewidth=2.0)
-            plt.arrow(posx-1.0,posy+12.5,dx=-0.3, dy=-0.3, color='white',
+            plt.plot([posx,posx-1.0],[posy,posy+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx-1.0,posx-1.0],[posy+2.5,posy+12.5],color=route_color,linewidth=2.0)
+            plt.arrow(posx-1.0,posy+12.5,dx=-0.3, dy=-0.3, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="R":
-            plt.plot([posx,posx+1.0],[posy,posy+2.5],color='white',linewidth=2.0)
-            plt.plot([posx+1.0,posx+1.0],[posy+2.5,posy+12.5],color='white',linewidth=2.0)
-            plt.arrow(posx+1.0,posy+12.5,dx=-0.3, dy=-0.3, color='white',
+            plt.plot([posx,posx+1.0],[posy,posy+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx+1.0,posx+1.0],[posy+2.5,posy+12.5],color=route_color,linewidth=2.0)
+            plt.arrow(posx+1.0,posy+12.5,dx=-0.3, dy=-0.3, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Fade":
         if Side=="L":
-            plt.plot([posx,posx-1.0],[posy,posy+2.5],color='white',linewidth=2.0)
-            plt.plot([posx-1.0,posx-1.0],[posy+2.5,posy+15.0],color='white',linewidth=2.0)
-            plt.arrow(posx-1.0,posy+15.0,dx=0.0, dy=0.5, color='white',
+            plt.plot([posx,posx-1.0],[posy,posy+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx-1.0,posx-1.0],[posy+2.5,posy+15.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-1.0,posy+15.0,dx=0.0, dy=0.5, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="R":
-            plt.plot([posx,posx+1.0],[posy,posy+2.5],color='white',linewidth=2.0)
-            plt.plot([posx+1.0,posx+1.0],[posy+2.5,posy+15.0],color='white',linewidth=2.0)
-            plt.arrow(posx+1.0,posy+15.0,dx=0.0, dy=0.5, color='white',
+            plt.plot([posx,posx+1.0],[posy,posy+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx+1.0,posx+1.0],[posy+2.5,posy+15.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+1.0,posy+15.0,dx=0.0, dy=0.5, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Go/Fly" or Route=="Seam" or Route=="Chip - Seam":
-        plt.plot([posx,posx],[posy,posy+15.0],color='white',linewidth=2.0)
-        plt.arrow(posx,posy+15.0,dx=0.0, dy=0.5, color='white',
+        plt.plot([posx,posx],[posy,posy+15.0],color=route_color,linewidth=2.0)
+        plt.arrow(posx,posy+15.0,dx=0.0, dy=0.5, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Curl" or Route=="Chip - Curl":
         if Side=="L":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx+1.0],[posy+10.0,posy+9.0],color='white',linewidth=2.0)
-            plt.arrow(posx+1.0,posy+9.0,dx=0.1, dy=-0.1, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx+1.0],[posy+10.0,posy+9.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+1.0,posy+9.0,dx=0.1, dy=-0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         else:
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx-1.0],[posy+10.0,posy+9.0],color='white',linewidth=2.0)
-            plt.arrow(posx-1.0,posy+9.0,dx=-0.1, dy=-0.1, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx-1.0],[posy+10.0,posy+9.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-1.0,posy+9.0,dx=-0.1, dy=-0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Comeback":
         if Side=="R":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx+1.0],[posy+10.0,posy+9.0],color='white',linewidth=2.0)
-            plt.arrow(posx+1.0,posy+9.0,dx=0.1, dy=-0.1, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx+1.0],[posy+10.0,posy+9.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+1.0,posy+9.0,dx=0.1, dy=-0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="L":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx-1.0],[posy+10.0,posy+9.0],color='white',linewidth=2.0)
-            plt.arrow(posx-1.0,posy+9.0,dx=-0.1, dy=-0.1, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx-1.0],[posy+10.0,posy+9.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-1.0,posy+9.0,dx=-0.1, dy=-0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Out":
         if Side=="R":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx+2.0],[posy+10.0,posy+10.0],color='white',linewidth=2.0)
-            plt.arrow(posx+2.0,posy+10.0,dx=0.1, dy=0.0, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx+2.0],[posy+10.0,posy+10.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+2.0,posy+10.0,dx=0.1, dy=0.0, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="L":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx-2.0],[posy+10.0,posy+10.0],color='white',linewidth=2.0)
-            plt.arrow(posx-2.0,posy+10.0,dx=-0.1, dy=0.0, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx-2.0],[posy+10.0,posy+10.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-2.0,posy+10.0,dx=-0.1, dy=0.0, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Dig":
         if Side=="L":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx+2.0],[posy+10.0,posy+10.0],color='white',linewidth=2.0)
-            plt.arrow(posx+2.0,posy+10.0,dx=0.1, dy=0.0, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx+2.0],[posy+10.0,posy+10.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+2.0,posy+10.0,dx=0.1, dy=0.0, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="R":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx-2.0],[posy+10.0,posy+10.0],color='white',linewidth=2.0)
-            plt.arrow(posx-2.0,posy+10.0,dx=-0.1, dy=0.0, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx-2.0],[posy+10.0,posy+10.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-2.0,posy+10.0,dx=-0.1, dy=0.0, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Slant":
         if Side=="L":
-            plt.plot([posx,posx],[posy,posy+2.5],color='white',linewidth=2.0)
-            plt.plot([posx,posx+2.5],[posy+2.5,posy+5.5],color='white',linewidth=2.0)
-            plt.arrow(posx+2.5,posy+5.5,dx=0.1, dy=0.1, color='white',
+            plt.plot([posx,posx],[posy,posy+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx+2.5],[posy+2.5,posy+5.5],color=route_color,linewidth=2.0)
+            plt.arrow(posx+2.5,posy+5.5,dx=0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="R":
-            plt.plot([posx,posx],[posy,posy+2.5],color='white',linewidth=2.0)
-            plt.plot([posx,posx-2.5],[posy+2.5,posy+5.5],color='white',linewidth=2.0)
-            plt.arrow(posx-2.5,posy+5.5,dx=-0.1, dy=0.1, color='white',
+            plt.plot([posx,posx],[posy,posy+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx-2.5],[posy+2.5,posy+5.5],color=route_color,linewidth=2.0)
+            plt.arrow(posx-2.5,posy+5.5,dx=-0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Jet Sweep Pass":
         if Side=="R":
-            plt.plot([posx,posx],[posy,LoSYard-2.5],color='white',linewidth=2.0,linestyle=':')
-            plt.plot([posx,hashloc+2.0],[LoSYard-2.5,LoSYard-2.5],color='white',linewidth=2.0,linestyle=':')
-            plt.plot([hashloc+2.0,hashloc-4.0],[LoSYard-2.5,LoSYard-2.5],color='white',linewidth=2.0)
-            plt.plot([hashloc-4.0,hashloc-7.0],[LoSYard-2.5,LoSYard+0.5],color='white',linewidth=2.0)
-            plt.arrow(hashloc-7.0,LoSYard+0.5,dx=-0.1, dy=0.1, color='white',
+            plt.plot([posx,posx],[posy,LoSYard-2.5],color=route_color,linewidth=2.0,linestyle=':')
+            plt.plot([posx,hashloc+2.0],[LoSYard-2.5,LoSYard-2.5],color=route_color,linewidth=2.0,linestyle=':')
+            plt.plot([hashloc+2.0,hashloc-4.0],[LoSYard-2.5,LoSYard-2.5],color=route_color,linewidth=2.0)
+            plt.plot([hashloc-4.0,hashloc-7.0],[LoSYard-2.5,LoSYard+0.5],color=route_color,linewidth=2.0)
+            plt.arrow(hashloc-7.0,LoSYard+0.5,dx=-0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         if Side=="L":
-            plt.plot([posx,posx],[posy,LoSYard-2.5],color='white',linewidth=2.0,linestyle=':')
-            plt.plot([posx,hashloc-2.0],[LoSYard-2.5,LoSYard-2.5],color='white',linewidth=2.0,linestyle=':')
-            plt.plot([hashloc-2.0,hashloc+4.0],[LoSYard-2.5,LoSYard-2.5],color='white',linewidth=2.0)
-            plt.plot([hashloc+4.0,hashloc+7.0],[LoSYard-2.5,LoSYard+0.5],color='white',linewidth=2.0)
-            plt.arrow(hashloc+7.0,LoSYard+0.5,dx=0.1, dy=0.1, color='white',
+            plt.plot([posx,posx],[posy,LoSYard-2.5],color=route_color,linewidth=2.0,linestyle=':')
+            plt.plot([posx,hashloc-2.0],[LoSYard-2.5,LoSYard-2.5],color=route_color,linewidth=2.0,linestyle=':')
+            plt.plot([hashloc-2.0,hashloc+4.0],[LoSYard-2.5,LoSYard-2.5],color=route_color,linewidth=2.0)
+            plt.plot([hashloc+4.0,hashloc+7.0],[LoSYard-2.5,LoSYard+0.5],color=route_color,linewidth=2.0)
+            plt.arrow(hashloc+7.0,LoSYard+0.5,dx=0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Post":
         if Side=="L":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx+1.0],[posy+10.0,posy+11.0],color='white',linewidth=2.0)
-            plt.arrow(posx+1.0,posy+11.0,dx=0.1, dy=0.1, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx+1.0],[posy+10.0,posy+11.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+1.0,posy+11.0,dx=0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="R":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx-1.0],[posy+10.0,posy+11.0],color='white',linewidth=2.0)
-            plt.arrow(posx-1.0,posy+11.0,dx=-0.1, dy=0.1, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx-1.0],[posy+10.0,posy+11.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-1.0,posy+11.0,dx=-0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Corner":
         if Side=="R":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx+1.0],[posy+10.0,posy+11.0],color='white',linewidth=2.0)
-            plt.arrow(posx+1.0,posy+11.0,dx=0.1, dy=0.1, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx+1.0],[posy+10.0,posy+11.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+1.0,posy+11.0,dx=0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="L":
-            plt.plot([posx,posx],[posy,posy+10.0],color='white',linewidth=2.0)
-            plt.plot([posx,posx-1.0],[posy+10.0,posy+11.0],color='white',linewidth=2.0)
-            plt.arrow(posx-1.0,posy+11.0,dx=-0.1, dy=0.1, color='white',
+            plt.plot([posx,posx],[posy,posy+10.0],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx-1.0],[posy+10.0,posy+11.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-1.0,posy+11.0,dx=-0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Sluggo":
         if Side=="L":
-            plt.plot([posx,posx],[posy,posy+2.5],color='white',linewidth=2.0)
-            plt.plot([posx,posx+2.5],[posy+2.5,posy+5.5],color='white',linewidth=2.0)
-            plt.plot([posx+2.5,posx+2.5],[posy+5.5,posy+15.0],color='white',linewidth=2.0)
-            plt.arrow(posx+2.5,posy+15.0,dx=0.0, dy=0.5, color='white',
+            plt.plot([posx,posx],[posy,posy+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx+2.5],[posy+2.5,posy+5.5],color=route_color,linewidth=2.0)
+            plt.plot([posx+2.5,posx+2.5],[posy+5.5,posy+15.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+2.5,posy+15.0,dx=0.0, dy=0.5, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="R":
-            plt.plot([posx,posx],[posy,posy+2.5],color='white',linewidth=2.0)
-            plt.plot([posx,posx-2.5],[posy+2.5,posy+5.5],color='white',linewidth=2.0)
-            plt.plot([posx-2.5,posx-2.5],[posy+5.5,posy+15.0],color='white',linewidth=2.0)
-            plt.arrow(posx-2.5,posy+15.0,dx=0.0, dy=0.5, color='white',
+            plt.plot([posx,posx],[posy,posy+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx-2.5],[posy+2.5,posy+5.5],color=route_color,linewidth=2.0)
+            plt.plot([posx-2.5,posx-2.5],[posy+5.5,posy+15.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-2.5,posy+15.0,dx=0.0, dy=0.5, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Flat - Left":
-        plt.plot([posx,posx],[posy,LoSYard+2.5],color='white',linewidth=2.0)
-        plt.plot([posx,posx-3.0],[LoSYard+2.5,LoSYard+2.5],color='white',linewidth=2.0)
-        plt.arrow(posx-3.0,LoSYard+2.5,dx=-0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+        plt.plot([posx,posx],[posy,LoSYard+2.5],color=route_color,linewidth=2.0)
+        plt.plot([posx,posx-3.0],[LoSYard+2.5,LoSYard+2.5],color=route_color,linewidth=2.0)
+        plt.arrow(posx-3.0,LoSYard+2.5,dx=-0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Flat - Right":
-        plt.plot([posx,posx],[posy,LoSYard+2.5],color='white',linewidth=2.0)
-        plt.plot([posx,posx+3.0],[LoSYard+2.5,LoSYard+2.5],color='white',linewidth=2.0)
-        plt.arrow(posx+3.0,LoSYard+2.5,dx=0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+        plt.plot([posx,posx],[posy,LoSYard+2.5],color=route_color,linewidth=2.0)
+        plt.plot([posx,posx+3.0],[LoSYard+2.5,LoSYard+2.5],color=route_color,linewidth=2.0)
+        plt.arrow(posx+3.0,LoSYard+2.5,dx=0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Chip - Flat":
         if Side=="L":
-            plt.plot([posx,posx],[posy,LoSYard+2.5],color='white',linewidth=2.0)
-            plt.plot([posx,posx-3.0],[LoSYard+2.5,LoSYard+2.5],color='white',linewidth=2.0)
-            plt.arrow(posx-3.0,LoSYard+2.5,dx=-0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx],[posy,LoSYard+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx-3.0],[LoSYard+2.5,LoSYard+2.5],color=route_color,linewidth=2.0)
+            plt.arrow(posx-3.0,LoSYard+2.5,dx=-0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         else:
-            plt.plot([posx,posx],[posy,LoSYard+2.5],color='white',linewidth=2.0)
-            plt.plot([posx,posx+3.0],[LoSYard+2.5,LoSYard+2.5],color='white',linewidth=2.0)
-            plt.arrow(posx+3.0,LoSYard+2.5,dx=0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx],[posy,LoSYard+2.5],color=route_color,linewidth=2.0)
+            plt.plot([posx,posx+3.0],[LoSYard+2.5,LoSYard+2.5],color=route_color,linewidth=2.0)
+            plt.arrow(posx+3.0,LoSYard+2.5,dx=0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Deep Cross":
         if Side=="L":
-            plt.plot([posx,posx+4,posx+6,posx+15],[posy,posy+4,posy+9,posy+11],color='white',linewidth=2.0)
-            plt.arrow(posx+15,posy+11,dx=0.09, dy=0.02, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx+4,posx+6,posx+15],[posy,posy+4,posy+9,posy+11],color=route_color,linewidth=2.0)
+            plt.arrow(posx+15,posy+11,dx=0.09, dy=0.02, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="R":
-            plt.plot([posx,posx-4,posx-6,posx-15],[posy,posy+4,posy+9,posy+11],color='white',linewidth=2.0)
-            plt.arrow(posx-15,posy+11,dx=-0.09, dy=0.02, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx-4,posx-6,posx-15],[posy,posy+4,posy+9,posy+11],color=route_color,linewidth=2.0)
+            plt.arrow(posx-15,posy+11,dx=-0.09, dy=0.02, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Run Fake" and Position=="B":
-            plt.plot([posx,posx],[posy,posy+2.0],color='white',linewidth=2.0)
-            plt.arrow(posx,posy+2.0,dx=0.0, dy=0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx],[posy,posy+2.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx,posy+2.0,dx=0.0, dy=0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Screen - Bubble":
         if Side=="L":
-            plt.plot([posx,posx-2.0,posx-5.0],[posy,posy-1.0,posy-1.0],color='white',linewidth=2.0)
-            plt.arrow(posx-5.0,posy-1.0,dx=-0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx-2.0,posx-5.0],[posy,posy-1.0,posy-1.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-5.0,posy-1.0,dx=-0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="R":
-            plt.plot([posx,posx+2.0,posx+5.0],[posy,posy-1.0,posy-1.0],color='white',linewidth=2.0)
-            plt.arrow(posx+5.0,posy-1.0,dx=0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx+2.0,posx+5.0],[posy,posy-1.0,posy-1.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+5.0,posy-1.0,dx=0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Screen - TE":
         if Side=="L":
-            plt.plot([posx,posx-1.5],[posy,posy-1.0],color='white',linewidth=2.0)
-            plt.arrow(posx-1.5,posy-1.0,dx=0.1, dy=-0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx-1.5],[posy,posy-1.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-1.5,posy-1.0,dx=0.1, dy=-0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=="R":
-            plt.plot([posx,posx+1.5],[posy,posy-1.0],color='white',linewidth=2.0)
-            plt.arrow(posx+1.5,posy-1.0,dx=-0.1, dy=-0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx+1.5],[posy,posy-1.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+1.5,posy-1.0,dx=-0.1, dy=-0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Drag" or Route=="Chip - Drag":
         if Side=="L":
-            plt.plot([posx,posx+3.0,posx+12.5],[posy,posy+3.0,posy+3.0],color='white',linewidth=2.0)
-            plt.arrow(posx+12.5,posy+3.0,dx=0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx+3.0,posx+12.5],[posy,posy+3.0,posy+3.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+12.5,posy+3.0,dx=0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=="R":
-            plt.plot([posx,posx-3.0,posx-12.5],[posy,posy+3.0,posy+3.0],color='white',linewidth=2.0)
-            plt.arrow(posx-12.5,posy+3.0,dx=-0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx-3.0,posx-12.5],[posy,posy+3.0,posy+3.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-12.5,posy+3.0,dx=-0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Pick":
         if Side=="R":
-            plt.plot([posx,posx,posx-3.0],[posy,posy+1.0,posy+3.0],color='white',linewidth=2.0)
-            plt.arrow(posx-3.0,posy+3.0,dx=0.0, dy=-0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx,posx-3.0],[posy,posy+1.0,posy+3.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-3.0,posy+3.0,dx=0.0, dy=-0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="L":
-            plt.plot([posx,posx,posx+3.0],[posy,posy+1.0,posy+3.0],color='white',linewidth=2.0)
-            plt.arrow(posx+3.0,posy+3.0,dx=0.0, dy=-0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx,posx+3.0],[posy,posy+1.0,posy+3.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+3.0,posy+3.0,dx=0.0, dy=-0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Over Ball":
         if Side=="L":
-            plt.plot([posx,posx+2,posx+6],[posy,posy+5,posy+9],color='white',linewidth=2.0)
-            plt.arrow(posx+6,posy+9,dx=0.00, dy=-0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx+2,posx+6],[posy,posy+5,posy+9],color=route_color,linewidth=2.0)
+            plt.arrow(posx+6,posy+9,dx=0.00, dy=-0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         elif Side=="R":
-            plt.plot([posx,posx-2,posx-6],[posy,posy+5,posy+9],color='white',linewidth=2.0)
-            plt.arrow(posx-6,posy+9,dx=0.00, dy=-0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx-2,posx-6],[posy,posy+5,posy+9],color=route_color,linewidth=2.0)
+            plt.arrow(posx-6,posy+9,dx=0.00, dy=-0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Whip":
         if Side=='L':
-            plt.plot([posx,posx,posx+2,posx-1],[posy,posy+1,posy+3,posy+3],color='white',linewidth=2.0)
-            plt.arrow(posx-1,posy+3,dx=-0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx,posx+2,posx-1],[posy,posy+1,posy+3,posy+3],color=route_color,linewidth=2.0)
+            plt.arrow(posx-1,posy+3,dx=-0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=='R':
-            plt.plot([posx,posx,posx-2,posx+1],[posy,posy+1,posy+3,posy+3],color='white',linewidth=2.0)
-            plt.arrow(posx+1,posy+3,dx=0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx,posx-2,posx+1],[posy,posy+1,posy+3,posy+3],color=route_color,linewidth=2.0)
+            plt.arrow(posx+1,posy+3,dx=0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Jerk":
         if Side=='R':
-            plt.plot([posx,posx-8,posx-8,posx-10],[posy,posy+4,posy+3,posy+7],color='white',linewidth=2.0)
-            plt.arrow(posx-10,posy+7,dx=-0.1, dy=0.2, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx-8,posx-8,posx-10],[posy,posy+4,posy+3,posy+7],color=route_color,linewidth=2.0)
+            plt.arrow(posx-10,posy+7,dx=-0.1, dy=0.2, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=='L':
-            plt.plot([posx,posx+8,posx+8,posx+10],[posy,posy+4,posy+3,posy+7],color='white',linewidth=2.0)
-            plt.arrow(posx+10,posy+7,dx=0.1, dy=0.2, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx+8,posx+8,posx+10],[posy,posy+4,posy+3,posy+7],color=route_color,linewidth=2.0)
+            plt.arrow(posx+10,posy+7,dx=0.1, dy=0.2, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Beneath" or Route=="Screen - Beneath" or Route=="Screen - Shovel":
         if Side=='L':
-            plt.plot([posx,posx+1,hashloc+3.0,hashloc+5.0],[posy,posy-1,posy-1,posy+1],color='white',linewidth=2.0)
-            plt.arrow(hashloc+5.0,posy+1,dx=0.1, dy=0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx+1,hashloc+3.0,hashloc+5.0],[posy,posy-1,posy-1,posy+1],color=route_color,linewidth=2.0)
+            plt.arrow(hashloc+5.0,posy+1,dx=0.1, dy=0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=='R':
-            plt.plot([posx,posx-1,hashloc-3.0,hashloc-5.0],[posy,posy-1,posy-1,posy+1],color='white',linewidth=2.0)
-            plt.arrow(hashloc-5.0,posy+1,dx=-0.1, dy=0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx-1,hashloc-3.0,hashloc-5.0],[posy,posy-1,posy-1,posy+1],color=route_color,linewidth=2.0)
+            plt.arrow(hashloc-5.0,posy+1,dx=-0.1, dy=0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Leak":
         if Side=='R':
             xs = np.linspace(posx,posx-15.0,num=50)
@@ -426,9 +426,9 @@ def RoutePlot(Route,Position,Side,posx,posy,LoSYard,hashloc):
                     ys[i] = -(xs[i]-posx) + posy
                 elif xs[i] <= posx-2.0:
                     ys[i] = 2.0 + posy + np.abs((xs[i]-(posx-2.0)))**3.0/250.0
-            plt.plot(xs,ys,color='white',linewidth=2.0)
+            plt.plot(xs,ys,color=route_color,linewidth=2.0)
             plt.arrow(posx-15, 2.0 + posy + np.abs((posx-15.0-(posx-2.0)))**3.0/250.0
-                      ,dx=-0.075, dy=0.2, color='white', width=0.15, head_width=0.9, overhang=0.5)
+                      ,dx=-0.075, dy=0.2, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=='L':
             xs = np.linspace(posx,posx+15.0,num=50)
             ys = np.zeros(len(xs))
@@ -437,54 +437,54 @@ def RoutePlot(Route,Position,Side,posx,posy,LoSYard,hashloc):
                     ys[i] = (xs[i]-posx) + posy
                 elif xs[i] >= posx+2.0:
                     ys[i] = 2.0 + posy + np.abs((xs[i]-(posx+2.0)))**3.0/250.0
-            plt.plot(xs,ys,color='white',linewidth=2.0)
+            plt.plot(xs,ys,color=route_color,linewidth=2.0)
             plt.arrow(posx+15, 2.0 + posy + np.abs((posx+15.0-(posx+2.0)))**3.0/250.0
-                      ,dx=0.075, dy=0.2, color='white', width=0.15, head_width=0.9, overhang=0.5)
+                      ,dx=0.075, dy=0.2, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Screen - Tunnel":
         if Side=='R':
-            plt.plot([posx,posx,posx-1],[posy,posy+2,posy],color='white',linewidth=2.0)
-            plt.arrow(posx-1,posy,dx=-0.1, dy=-0.2, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx,posx-1],[posy,posy+2,posy],color=route_color,linewidth=2.0)
+            plt.arrow(posx-1,posy,dx=-0.1, dy=-0.2, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=='L':
-            plt.plot([posx,posx,posx+1],[posy,posy+2,posy],color='white',linewidth=2.0)
-            plt.arrow(posx+1,posy,dx=0.1, dy=-0.2, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx,posx+1],[posy,posy+2,posy],color=route_color,linewidth=2.0)
+            plt.arrow(posx+1,posy,dx=0.1, dy=-0.2, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Screen - Quick":
         if Side=='L':
-            plt.plot([posx,posx],[posy,posy+1],color='white',linewidth=2.0)
-            plt.arrow(posx,posy+1,dx=0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx],[posy,posy+1],color=route_color,linewidth=2.0)
+            plt.arrow(posx,posy+1,dx=0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=='R':
-            plt.plot([posx,posx],[posy,posy+1],color='white',linewidth=2.0)
-            plt.arrow(posx,posy+1,dx=-0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx],[posy,posy+1],color=route_color,linewidth=2.0)
+            plt.arrow(posx,posy+1,dx=-0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Wheel":
         if hashloc < 0.0:
             xs = np.linspace(posx,posx+12.0,num=50)
             ys = np.zeros(len(xs))
             for i in range(len(xs)):
                 ys[i] = posy + np.abs((xs[i]-posx))**10.0/4.0e9
-            plt.plot(xs,ys,color='white',linewidth=2.0)
-            plt.arrow(xs[-2], ys[-2], xs[-1]-xs[-2], ys[-1]-ys[-2], color='white',
+            plt.plot(xs,ys,color=route_color,linewidth=2.0)
+            plt.arrow(xs[-2], ys[-2], xs[-1]-xs[-2], ys[-1]-ys[-2], color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif hashloc >= 0.0:
             xs = np.linspace(posx-12.0,posx,num=50)
             ys = np.zeros(len(xs))
             for i in reversed(range(len(xs))):
                 ys[i] = posy + np.abs((xs[i]-posx))**10.0/4.0e9
-            plt.plot(xs,ys,color='white',linewidth=2.0)
-            plt.arrow(xs[1], ys[1], xs[0]-xs[1], ys[0]-ys[1], color='white',
+            plt.plot(xs,ys,color=route_color,linewidth=2.0)
+            plt.arrow(xs[1], ys[1], xs[0]-xs[1], ys[0]-ys[1], color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Angle":
         if Side=='L':
-            plt.plot([posx,posx-3,posx-2],[posy,LoSYard+3,LoSYard+3],color='white',linewidth=2.0)
-            plt.arrow(posx-2,LoSYard+3,dx=0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx-3,posx-2],[posy,LoSYard+3,LoSYard+3],color=route_color,linewidth=2.0)
+            plt.arrow(posx-2,LoSYard+3,dx=0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=='R':
-            plt.plot([posx,posx+3,posx+2],[posy,LoSYard+3,LoSYard+3],color='white',linewidth=2.0)
-            plt.arrow(posx+2,LoSYard+3,dx=-0.1, dy=0.0, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx+3,posx+2],[posy,LoSYard+3,LoSYard+3],color=route_color,linewidth=2.0)
+            plt.arrow(posx+2,LoSYard+3,dx=-0.1, dy=0.0, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Hitch & Go":
         if Side=='L':
-            plt.plot([posx,posx,posx+0.5,posx+0.5],[posy,posy+5,posy+4,posy+12],color='white',linewidth=2.0)
-            plt.arrow(posx+0.5,posy+12,dx=0.0, dy=0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx,posx+0.5,posx+0.5],[posy,posy+5,posy+4,posy+12],color=route_color,linewidth=2.0)
+            plt.arrow(posx+0.5,posy+12,dx=0.0, dy=0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
         if Side=='R':
-            plt.plot([posx,posx,posx-0.5,posx-0.5],[posy,posy+5,posy+4,posy+12],color='white',linewidth=2.0)
-            plt.arrow(posx-0.5,posy+12,dx=0.0, dy=0.1, color='white', width=0.15, head_width=0.9, overhang=0.5)
+            plt.plot([posx,posx,posx-0.5,posx-0.5],[posy,posy+5,posy+4,posy+12],color=route_color,linewidth=2.0)
+            plt.arrow(posx-0.5,posy+12,dx=0.0, dy=0.1, color=route_color, width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Out & Up":
         if Side=='L':
             xs = np.linspace(posx,posx-9.0,num=500)
@@ -492,8 +492,8 @@ def RoutePlot(Route,Position,Side,posx,posy,LoSYard,hashloc):
             for i in reversed(range(len(xs))):
                     ys[i] = 3.5 + posy + 10.0**np.abs((xs[i]-posx))/7.5e7
             plt.plot(np.append(np.array([posx,posx]), xs),
-                     np.append(np.array([posy,posy+3.5]), ys), color='white',linewidth=2.0)
-            plt.arrow(xs[-2], ys[-2], xs[-1]-xs[-2], ys[-1]-ys[-2], color='white',
+                     np.append(np.array([posy,posy+3.5]), ys), color=route_color,linewidth=2.0)
+            plt.arrow(xs[-2], ys[-2], xs[-1]-xs[-2], ys[-1]-ys[-2], color=route_color,
                   width=0.15, head_width=0.9, overhang=0.5)
         if Side=='R':
             xs = np.linspace(posx,posx+9.0,num=500)
@@ -501,71 +501,71 @@ def RoutePlot(Route,Position,Side,posx,posy,LoSYard,hashloc):
             for i in range(len(xs)):
                     ys[i] = 3.5 + posy + 10.0**np.abs((xs[i]-posx))/7.5e7
             plt.plot(np.append(np.array([posx,posx]), xs),
-                     np.append(np.array([posy,posy+3.5]), ys), color='white',linewidth=2.0)
-            plt.arrow(xs[-2], ys[-2], xs[-1]-xs[-2], ys[-1]-ys[-2], color='white',
+                     np.append(np.array([posy,posy+3.5]), ys), color=route_color,linewidth=2.0)
+            plt.arrow(xs[-2], ys[-2], xs[-1]-xs[-2], ys[-1]-ys[-2], color=route_color,
                   width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Corner Post":
         if Side=="L":
-            plt.plot([posx,posx,posx+3.0,posx],[posy,posy+7.0,posy+10.0,posy+13.0],color='white',linewidth=2.0)
-            plt.arrow(posx,posy+13.0,dx=-0.1, dy=0.1, color='white',
+            plt.plot([posx,posx,posx+3.0,posx],[posy,posy+7.0,posy+10.0,posy+13.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx,posy+13.0,dx=-0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         if Side=="R":
-            plt.plot([posx,posx,posx-3.0,posx],[posy,posy+7.0,posy+10.0,posy+13.0],color='white',linewidth=2.0)
-            plt.arrow(posx,posy+13.0,dx=0.1, dy=0.1, color='white',
+            plt.plot([posx,posx,posx-3.0,posx],[posy,posy+7.0,posy+10.0,posy+13.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx,posy+13.0,dx=0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Post Corner":
         if Side=="R":
-            plt.plot([posx,posx,posx+3.0,posx],[posy,posy+7.0,posy+10.0,posy+13.0],color='white',linewidth=2.0)
-            plt.arrow(posx,posy+13.0,dx=-0.1, dy=0.1, color='white',
+            plt.plot([posx,posx,posx+3.0,posx],[posy,posy+7.0,posy+10.0,posy+13.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx,posy+13.0,dx=-0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         if Side=="L":
-            plt.plot([posx,posx,posx-3.0,posx],[posy,posy+7.0,posy+10.0,posy+13.0],color='white',linewidth=2.0)
-            plt.arrow(posx,posy+13.0,dx=0.1, dy=0.1, color='white',
+            plt.plot([posx,posx,posx-3.0,posx],[posy,posy+7.0,posy+10.0,posy+13.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx,posy+13.0,dx=0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Stick - Nod":
         if Side=="R":
-            plt.plot([posx,posx,posx+2.0,posx-3.0],[posy,posy+5.0,posy+6.0,posy+11.0],color='white',linewidth=2.0)
-            plt.arrow(posx-3.0,posy+11.0,dx=-0.1, dy=0.1, color='white',
+            plt.plot([posx,posx,posx+2.0,posx-3.0],[posy,posy+5.0,posy+6.0,posy+11.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx-3.0,posy+11.0,dx=-0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         if Side=="L":
-            plt.plot([posx,posx,posx-2.0,posx+3.0],[posy,posy+5.0,posy+6.0,posy+11.0],color='white',linewidth=2.0)
-            plt.arrow(posx+3.0,posy+11.0,dx=0.1, dy=0.1, color='white',
+            plt.plot([posx,posx,posx-2.0,posx+3.0],[posy,posy+5.0,posy+6.0,posy+11.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx+3.0,posy+11.0,dx=0.1, dy=0.1, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Check & Release":
         #First block
-        plt.plot([posx,posx],[posy,posy+1.0],color='white',linewidth=2.0)
-        plt.plot([posx-0.4,posx+0.4],[posy+1.0,posy+1.0],color='white',linewidth=2.0)
+        plt.plot([posx,posx],[posy,posy+1.0],color=route_color,linewidth=2.0)
+        plt.plot([posx-0.4,posx+0.4],[posy+1.0,posy+1.0],color=route_color,linewidth=2.0)
         #Then release into what we'll assume is like a shallower wheel route
         if hashloc > 0.0:
             xs = np.linspace(posx,posx+12.0,num=50)
             ys = np.zeros(len(xs))
             for i in range(len(xs)):
                 ys[i] = posy + np.abs((xs[i]-posx))**3.0/150.0
-            plt.plot(xs,ys,color='white',linewidth=2.0)
-            plt.arrow(xs[-2], ys[-2], xs[-1]-xs[-2], ys[-1]-ys[-2], color='white',
+            plt.plot(xs,ys,color=route_color,linewidth=2.0)
+            plt.arrow(xs[-2], ys[-2], xs[-1]-xs[-2], ys[-1]-ys[-2], color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         elif hashloc <= 0.0:
             xs = np.linspace(posx-12.0,posx,num=50)
             ys = np.zeros(len(xs))
             for i in range(len(xs)):
                 ys[i] = posy + np.abs((xs[i]-posx))**3.0/150.0
-            plt.plot(xs,ys,color='white',linewidth=2.0)
-            plt.arrow(xs[1], ys[1], xs[0]-xs[1], ys[0]-ys[1], color='white',
+            plt.plot(xs,ys,color=route_color,linewidth=2.0)
+            plt.arrow(xs[1], ys[1], xs[0]-xs[1], ys[0]-ys[1], color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     elif Route=="Quick":
         if Side=="R":
-            plt.plot([posx,posx],[posy,posy+1.0],color='white',linewidth=2.0)
-            plt.arrow(posx,posy+1.0,dx=-0.1, dy=0.0, color='white',
+            plt.plot([posx,posx],[posy,posy+1.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx,posy+1.0,dx=-0.1, dy=0.0, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
         if Side=="L":
-            plt.plot([posx,posx],[posy,posy+1.0],color='white',linewidth=2.0)
-            plt.arrow(posx,posy+1.0,dx=0.1, dy=0.0, color='white',
+            plt.plot([posx,posx],[posy,posy+1.0],color=route_color,linewidth=2.0)
+            plt.arrow(posx,posy+1.0,dx=0.1, dy=0.0, color=route_color,
                       width=0.15, head_width=0.9, overhang=0.5)
     else:
         print("Uh oh! I don't know how to plot the "+str(Route)+" route!")
 
 
-def SkillPos(Position, RosterPosition, Side, Order, LoSYard, hashloc, Shotgun):
+def SkillPos(Position, RosterPosition, Side, Order, LoSYard, hashloc, Shotgun, route_color):
     if Position == 'QB':
         if Shotgun == 1:
             posx = hashloc
@@ -642,8 +642,8 @@ def SkillPos(Position, RosterPosition, Side, Order, LoSYard, hashloc, Shotgun):
         posx = 15.5
         posy = -0.55
     posy = LoSYard + posy
-    plt.scatter(posx,posy,facecolors='none', edgecolors='white', s=50)
-    plt.text(posx,posy-1,RosterPosition,color='white',
+    plt.scatter(posx,posy,facecolors='none', edgecolors=route_color, s=50)
+    plt.text(posx,posy-1,RosterPosition,color=route_color,
     horizontalalignment='center',verticalalignment='center',fontsize=9)
 
     return posx, posy
@@ -719,6 +719,11 @@ def PlotPlay(GameID,PlayID):
     (SkillPositionPlayersData["GameID"]==GameID) &
     (SkillPositionPlayersData["EventID"]==PlayID)
     ]["OnFieldPosition"] )
+
+    SkillPlayerNames = list(SkillPositionPlayersData.loc[
+    (SkillPositionPlayersData["GameID"] == GameID) &
+    (SkillPositionPlayersData["EventID"] == PlayID)
+    ]["Name"])
     
     RosterPositions = list( SkillPositionPlayersData.loc[
     (SkillPositionPlayersData["GameID"]==GameID) &
@@ -858,8 +863,18 @@ def PlotPlay(GameID,PlayID):
 
     #Plot the skill players
     for i in range(len(Positions)):
-        posx, posy = SkillPos(Positions[i], RosterPositions[i], Sides[i], Orders[i], LoSYard, hashloc, Shotgun)
-        RoutePlot(Routes[i], Positions[i], Sides[i], posx, posy, LoSYard, hashloc)
+        PlayerNameStandard = SkillPlayerNames[i].split(' ')[1]+', '+SkillPlayerNames[i].split(' ')[0]
+        PlayerNameShort = SkillPlayerNames[i].split(' ')[0][0]+'.'+SkillPlayerNames[i].split(' ')[1]
+        PlayerNameAlt = SkillPlayerNames[i].split(' ')[0][0:2]+'.'+SkillPlayerNames[i].split(' ')[1]
+        if any([PlayerNameStandard in PlayDesc, PlayerNameShort in PlayDesc, PlayerNameAlt in PlayDesc]) and not Positions[i]=='QB':
+            if "incomplete" in PlayDesc:
+                route_color = 'red'
+            elif "pass" in PlayDesc:
+                route_color = 'lime'
+        else:
+            route_color = 'white'
+        posx, posy = SkillPos(Positions[i], RosterPositions[i], Sides[i], Orders[i], LoSYard, hashloc, Shotgun, route_color)
+        RoutePlot(Routes[i], Positions[i], Sides[i], posx, posy, LoSYard, hashloc, route_color)
     
     #Plot score/game info graphic
     #First get team abbreviations and scores
@@ -958,6 +973,7 @@ def PlotPlay(GameID,PlayID):
 
 ## Uncomment below to plot an individual play
 #PlotPlay(2859, 745)
+#PlotPlay(2821, 540)
 
 #Can look at more than 1 random play by updating the range below
 for i in range(1):
